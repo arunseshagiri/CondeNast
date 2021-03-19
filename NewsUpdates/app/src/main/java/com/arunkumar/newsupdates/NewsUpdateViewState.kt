@@ -3,11 +3,11 @@ package com.arunkumar.newsupdates
 import com.arunkumar.newsupdates.models.NewsUpdateDomainModel
 
 sealed class NewsUpdateViewState {
-    object showProgress : NewsUpdateViewState()
+    object ShowProgress : NewsUpdateViewState()
 
-    object hideProgress : NewsUpdateViewState()
+    object HideProgress : NewsUpdateViewState()
 
-    class showNews(val newsUpdateDomainModel: List<NewsUpdateDomainModel>) : NewsUpdateViewState()
+    class ShowNews(val newsUpdateDomainModel: List<NewsUpdateDomainModel>) : NewsUpdateViewState()
 
-    class error(val error: Throwable) : NewsUpdateViewState()
+    class Error(val error: Throwable) : NewsUpdateViewState()
 }

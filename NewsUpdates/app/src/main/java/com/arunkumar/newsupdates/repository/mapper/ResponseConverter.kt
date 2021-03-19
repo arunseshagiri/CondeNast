@@ -21,6 +21,6 @@ class ResponseConverter : Function<RawNewsModel, NewsUpdateViewState> {
             articleList.add(article)
         }
 
-        return NewsUpdateViewState.showNews(articleList)
+        return NewsUpdateViewState.ShowNews(articleList)
     }
 }
