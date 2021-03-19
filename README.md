@@ -1,0 +1,2 @@
+# CondeNast
+Assignment for CondeNast
