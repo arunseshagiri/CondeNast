@@ -14,7 +14,7 @@ class NewsUpdateViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val newsArticleLiveData: MutableLiveData<NewsUpdateViewState> = MutableLiveData()
+    val newsArticleLiveData: MutableLiveData<NewsUpdateViewState> = MutableLiveData()
 
     fun fetchNewsArticle() {
         disposable.add(
