@@ -13,8 +13,13 @@ import kotlinx.android.synthetic.main.item_news_article.view.*
 class NewsArticleAdapter : RecyclerView.Adapter<NewsArticleAdapter.NewsArticleViewHolder>() {
 
     private val articleList: ArrayList<NewsUpdateDomainModel> = ArrayList()
+    private var navigate: ((Int) -> Unit)? = null
 
-    fun setArticleNews(articleList: List<NewsUpdateDomainModel>) {
+    fun setArticleNews(
+        articleList: List<NewsUpdateDomainModel>,
+        navigate: (Int) -> Unit
+    ) {
+        this.navigate = navigate
         this.articleList.clear()
         this.articleList.addAll(articleList)
         notifyDataSetChanged()
@@ -37,15 +42,16 @@ class NewsArticleAdapter : RecyclerView.Adapter<NewsArticleAdapter.NewsArticleVi
 
         holder.view.tvNewsAuthor.text = article.author
 
-        if(article.description.isEmpty()) {
+        if (article.description.isEmpty()) {
             holder.view.tvNewsDescription.text = article.url
         } else {
             holder.view.tvNewsDescription.text = article.description
         }
 
-
         holder.view.tvCommentsCount.text = article.comments.toString()
         holder.view.tvLikesCount.text = article.likes.toString()
+
+        holder.view.setOnClickListener { navigate?.invoke(position) }
     }
 
     override fun getItemCount(): Int = articleList.size

@@ -10,10 +10,12 @@ class LikesResponseConverter :
         val article = pair.second
 
         return NewsUpdateDomainModel(
+            article.title,
             article.author,
             article.description,
             article.imageUrl,
             article.imageUrl,
+            article.content,
             article.articleId,
             likes,
             article.comments

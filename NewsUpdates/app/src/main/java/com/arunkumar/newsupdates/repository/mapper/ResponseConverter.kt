@@ -12,10 +12,12 @@ class ResponseConverter : Function<RawNewsModel, List<NewsUpdateDomainModel>> {
 
         val articleList = ArrayList<NewsUpdateDomainModel>()
         newsResponse.articles?.forEach {
+            val title = it.title ?: EMPTY_STRING
             val author = it.author ?: EMPTY_STRING
             val description = it.description ?: EMPTY_STRING
             val urlToImage = it.urlToImage ?: BASE_IMAGE_URL_DEFAULT
             val url = it.url ?: EMPTY_STRING
+            val content = it.content ?: EMPTY_STRING
 
             val urlWithoutScheme = url
                 .replace("http://", EMPTY_STRING)
@@ -25,10 +27,12 @@ class ResponseConverter : Function<RawNewsModel, List<NewsUpdateDomainModel>> {
             Timber.d("articleId: $articleId")
 
             val article = NewsUpdateDomainModel(
+                title,
                 author,
                 description,
                 urlToImage,
                 url,
+                content,
                 articleId,
                 0,
                 0
