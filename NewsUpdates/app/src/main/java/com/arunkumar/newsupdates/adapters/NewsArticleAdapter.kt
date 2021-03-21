@@ -32,12 +32,11 @@ class NewsArticleAdapter : RecyclerView.Adapter<NewsArticleAdapter.NewsArticleVi
         Glide.with(holder.view)
             .load(article.imageUrl)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .placeholder(R.drawable.ic_place_holder)
             .into(holder.view.ivNewsImage)
 
         holder.view.tvNewsAuthor.text = article.author
         holder.view.tvNewsDescription.text = article.description
-
-
     }
 
     override fun getItemCount(): Int = articleList.size
