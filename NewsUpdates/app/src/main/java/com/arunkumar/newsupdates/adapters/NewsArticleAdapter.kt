@@ -36,7 +36,16 @@ class NewsArticleAdapter : RecyclerView.Adapter<NewsArticleAdapter.NewsArticleVi
             .into(holder.view.ivNewsImage)
 
         holder.view.tvNewsAuthor.text = article.author
-        holder.view.tvNewsDescription.text = article.description
+
+        if(article.description.isEmpty()) {
+            holder.view.tvNewsDescription.text = article.url
+        } else {
+            holder.view.tvNewsDescription.text = article.description
+        }
+
+
+        holder.view.tvCommentsCount.text = article.comments.toString()
+        holder.view.tvLikesCount.text = article.likes.toString()
     }
 
     override fun getItemCount(): Int = articleList.size
