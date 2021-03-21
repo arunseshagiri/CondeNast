@@ -9,6 +9,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arunkumar.newsupdates.NewsUpdateViewState
 import com.arunkumar.newsupdates.R
@@ -40,8 +41,9 @@ class NewsUpdateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("************** $viewModelFactory")
         val viewModel =
-            ViewModelProvider(this, viewModelFactory)
+            ViewModelProvider(requireActivity(), viewModelFactory)
                 .get(NewsUpdateViewModel::class.java)
 
         initializeRecyclerView()
@@ -67,7 +69,12 @@ class NewsUpdateFragment : Fragment() {
                     progress.visibility = GONE
                 }
                 is NewsUpdateViewState.ShowNews -> {
-                    articleAdapter.setArticleNews(it.newsUpdateDomainModel)
+                    viewModel.articleList = it.newsUpdateDomainModel
+                    articleAdapter.setArticleNews(it.newsUpdateDomainModel) { position: Int ->
+                        viewModel.selectedPosition = position
+                        findNavController()
+                            .navigate(R.id.action_newsUpdateFragment_to_articleDetailFragment)
+                    }
                 }
                 is NewsUpdateViewState.Error -> {
                     Timber.d(it.error)
