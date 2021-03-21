@@ -57,6 +57,24 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:letterSpacing="0.05"
+            android:lineSpacingExtra="4sp"
+            android:textAlignment="viewStart"
+            android:textColor="#262629"
+            android:textSize="14sp"
+            android:typeface="normal"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/tvNewsDescription"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/tvLikesCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto_light"
             android:letterSpacing="0.05"
@@ -66,10 +84,54 @@
             android:textSize="12sp"
             android:typeface="normal"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@id/tvNewsDescription"
-            tools:text="Title" />
+            card_view:layout_constraintTop_toBottomOf="@id/tvNewsAuthor"
+            tools:text="10" />
+
+        <ImageView
+            android:id="@+id/ivLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/news_image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/likes_24"
+            card_view:layout_constraintBottom_toBottomOf="@+id/tvLikesCount"
+            card_view:layout_constraintStart_toEndOf="@+id/tvLikesCount"
+            card_view:layout_constraintTop_toTopOf="@+id/tvLikesCount" />
+
+        <TextView
+            android:id="@+id/tvCommentsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:letterSpacing="0.05"
+            android:lineSpacingExtra="4sp"
+            android:textAlignment="viewStart"
+            android:textColor="#262629"
+            android:textSize="12sp"
+            android:typeface="normal"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintStart_toEndOf="@id/ivLikes"
+            card_view:layout_constraintTop_toBottomOf="@id/tvNewsAuthor"
+            tools:text="10" />
+
+        <ImageView
+            android:id="@+id/ivComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/news_image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/comments_24"
+            card_view:layout_constraintBottom_toBottomOf="@+id/tvCommentsCount"
+            card_view:layout_constraintStart_toEndOf="@+id/tvCommentsCount"
+            card_view:layout_constraintTop_toTopOf="@+id/tvCommentsCount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
