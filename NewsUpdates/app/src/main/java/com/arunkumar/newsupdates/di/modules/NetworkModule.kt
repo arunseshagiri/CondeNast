@@ -11,10 +11,10 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
+import javax.inject.Named
 
 @Module
-class NetworkModule @Inject constructor(private val baseUrl: String) {
+class NetworkModule {
 
     @Provides
     fun providesBuildLogger(): HttpLoggingInterceptor {
@@ -36,16 +36,27 @@ class NetworkModule @Inject constructor(private val baseUrl: String) {
         .build()
 
     @Provides
-    fun providesRetrofitBuilder(gson: Gson, okHttpClient: OkHttpClient): Retrofit =
-        Retrofit.Builder()
+    fun providesRetrofitBuilder(
+        @Named("articleBaseUrl") baseUrl: String,
+        gson: Gson,
+        okHttpClient: OkHttpClient
+    ): Retrofit {
+        return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(baseUrl)
             .client(okHttpClient)
             .build()
+    }
 
     @Provides
     fun providesArticlesApiBackend(retrofit: Retrofit): ArticlesApiBackend {
         return retrofit.create(ArticlesApiBackend::class.java)
+    }
+
+    @Provides
+    @Named("articleBaseUrl")
+    fun baseUrl(): String {
+        return "https://newsapi.org/v2/"
     }
 }
