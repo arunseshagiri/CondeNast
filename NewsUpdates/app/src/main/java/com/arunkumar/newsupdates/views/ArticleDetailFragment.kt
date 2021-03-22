@@ -1,17 +1,15 @@
 package com.arunkumar.newsupdates.views
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.arunkumar.newsupdates.R
 import com.arunkumar.newsupdates.viewmodels.NewsUpdateViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_article_detail.*
 import timber.log.Timber
@@ -32,9 +30,7 @@ class ArticleDetailFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("************** $viewModelFactory")
-        val viewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)
-                .get(NewsUpdateViewModel::class.java)
+        val viewModel by activityViewModels<NewsUpdateViewModel> { viewModelFactory }
 
         val article = viewModel.articleList[viewModel.selectedPosition]
 

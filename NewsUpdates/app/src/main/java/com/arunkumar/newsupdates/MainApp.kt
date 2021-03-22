@@ -17,10 +17,7 @@ class MainApp : DaggerApplication() {
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        val appComponent: AppComponent = DaggerAppComponent
-            .builder()
-            .networkModule(NetworkModule("https://newsapi.org/v2/"))
-            .build()
+        val appComponent: AppComponent = DaggerAppComponent.builder().build()
         appComponent.inject(this)
         return appComponent
     }
