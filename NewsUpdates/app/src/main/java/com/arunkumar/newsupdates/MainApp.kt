@@ -1,41 +1,27 @@
 package com.arunkumar.newsupdates
 
-import android.app.Activity
-import androidx.multidex.MultiDexApplication
+import androidx.multidex.MultiDex
 import com.arunkumar.newsupdates.di.components.AppComponent
 import com.arunkumar.newsupdates.di.components.DaggerAppComponent
 import com.arunkumar.newsupdates.di.modules.NetworkModule
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.DaggerApplication
 import timber.log.Timber
-import javax.inject.Inject
 
-class MainApp : MultiDexApplication(), HasActivityInjector {
-
-    @Inject
-    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
-    private lateinit var appComponent: AppComponent
+class MainApp : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        appComponent = createAppComponent()
-        appComponent.inject(this)
+        MultiDex.install(this)
     }
 
-    private fun createAppComponent(): AppComponent {
-        return DaggerAppComponent
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        val appComponent: AppComponent = DaggerAppComponent
             .builder()
             .networkModule(NetworkModule("https://newsapi.org/v2/"))
             .build()
-    }
-
-    fun getComponent(): AppComponent {
+        appComponent.inject(this)
         return appComponent
-    }
-
-    override fun activityInjector(): AndroidInjector<Activity> {
-        return activityDispatchingAndroidInjector
     }
 }
