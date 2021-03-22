@@ -16,12 +16,11 @@ class NewsUpdateViewModel @Inject constructor(
 ) : ViewModel() {
 
     val newsArticleLiveData: MutableLiveData<NewsUpdateViewState> = MutableLiveData()
-    var isFetched: Boolean = false
     var articleList: List<NewsUpdateDomainModel> = ArrayList()
     var selectedPosition: Int = -1
 
     fun fetchNewsArticle() {
-        if (isFetched) {
+        if (articleList.isNotEmpty()) {
             return
         }
         disposable.add(
@@ -35,7 +34,6 @@ class NewsUpdateViewModel @Inject constructor(
                 .subscribe(
                     {
                         newsArticleLiveData.value = it
-                        isFetched = true
                     },
                     {
                         newsArticleLiveData.value = NewsUpdateViewState.Error(it)
