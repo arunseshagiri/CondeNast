@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @Module
-class NetworkModule @Inject constructor(val baseUrl: String) {
+class NetworkModule @Inject constructor(private val baseUrl: String) {
 
     @Provides
     fun providesBuildLogger(): HttpLoggingInterceptor {

@@ -16,21 +16,17 @@ import com.arunkumar.newsupdates.R
 import com.arunkumar.newsupdates.adapters.NewsArticleAdapter
 import com.arunkumar.newsupdates.viewmodels.NewsUpdateViewModel
 import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_news_update.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class NewsUpdateFragment : Fragment() {
+class NewsUpdateFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var articleAdapter: NewsArticleAdapter
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        AndroidSupportInjection.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
