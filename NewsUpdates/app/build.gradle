@@ -6,6 +6,11 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+def localPropertiesFile = rootProject.file('local.properties')
+
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "30.0.2"
@@ -21,8 +26,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "API_KEY", localProperties["debugApiKey"]
+        }
         release {
             minifyEnabled false
+            buildConfigField "String", "API_KEY", localProperties["releaseApiKey"]
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

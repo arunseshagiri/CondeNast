@@ -2,6 +2,7 @@ package com.arunkumar.newsupdates.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.arunkumar.newsupdates.BuildConfig
 import com.arunkumar.newsupdates.NewsUpdateViewState
 import com.arunkumar.newsupdates.models.NewsUpdateDomainModel
 import com.arunkumar.newsupdates.repository.NewsRepository
@@ -25,7 +26,9 @@ class NewsUpdateViewModel @Inject constructor(
         }
         disposable.add(
             repository
-                .getNewsArticles("https://newsapi.org/v2/top-headlines?country=us&apiKey=ca03e0d6656148cbaf18a2ce6cee8d6e")
+                .getNewsArticles(
+                    "https://newsapi.org/v2/top-headlines?country=us&${BuildConfig.API_KEY}"
+                )
                 .observeOn(mainThread())
                 .doOnSubscribe { newsArticleLiveData.value = NewsUpdateViewState.ShowProgress }
                 .doOnEvent { _, _ -> newsArticleLiveData.value = NewsUpdateViewState.HideProgress }
