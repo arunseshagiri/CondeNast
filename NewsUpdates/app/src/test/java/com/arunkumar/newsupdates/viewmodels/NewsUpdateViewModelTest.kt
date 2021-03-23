@@ -47,7 +47,7 @@ class NewsUpdateViewModelTest {
         disposable = spyk(CompositeDisposable())
         observer = mockk()
 
-        viewModel = spyk(NewsUpdateViewModel(repository, disposable))
+        viewModel = NewsUpdateViewModel(repository, disposable)
 
         val article1 = NewsUpdateDomainModel(
             "",
