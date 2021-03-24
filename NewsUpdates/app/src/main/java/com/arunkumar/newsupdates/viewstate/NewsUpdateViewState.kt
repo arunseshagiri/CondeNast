@@ -1,4 +1,4 @@
-package com.arunkumar.newsupdates
+package com.arunkumar.newsupdates.viewstate
 
 import com.arunkumar.newsupdates.models.NewsUpdateDomainModel
 

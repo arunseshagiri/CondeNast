@@ -1,6 +1,6 @@
 package com.arunkumar.newsupdates.di.modules
 
-import com.arunkumar.newsupdates.MainActivity
+import com.arunkumar.newsupdates.views.MainActivity
 import com.arunkumar.newsupdates.di.scopes.ActivityScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

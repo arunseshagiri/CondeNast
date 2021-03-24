@@ -2,7 +2,7 @@ package com.arunkumar.newsupdates.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.arunkumar.newsupdates.NewsUpdateViewState
+import com.arunkumar.newsupdates.viewstate.NewsUpdateViewState
 import com.arunkumar.newsupdates.models.NewsUpdateDomainModel
 import com.arunkumar.newsupdates.repository.NewsRepository
 import io.mockk.every

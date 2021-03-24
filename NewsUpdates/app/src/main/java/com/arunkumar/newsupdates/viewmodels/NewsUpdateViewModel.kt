@@ -3,7 +3,7 @@ package com.arunkumar.newsupdates.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.arunkumar.newsupdates.BuildConfig
-import com.arunkumar.newsupdates.NewsUpdateViewState
+import com.arunkumar.newsupdates.viewstate.NewsUpdateViewState
 import com.arunkumar.newsupdates.models.NewsUpdateDomainModel
 import com.arunkumar.newsupdates.repository.NewsRepository
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread

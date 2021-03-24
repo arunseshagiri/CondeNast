@@ -29,7 +29,6 @@ class ArticleDetailFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.d("************** $viewModelFactory")
         val viewModel by activityViewModels<NewsUpdateViewModel> { viewModelFactory }
 
         val article = viewModel.articleList[viewModel.selectedPosition]
