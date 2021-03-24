@@ -56,6 +56,7 @@ class NewsRepository @Inject constructor(
         return articleApiService
             .articleComments(EXTRA_INFO_BASEURL + COMMENTS_PATH + articleId)
             .toObservable()
+            .onErrorReturn { CommentsModel(0) }
             .subscribeOn(io())
     }
 
@@ -65,6 +66,7 @@ class NewsRepository @Inject constructor(
         return articleApiService
             .articleLikes(EXTRA_INFO_BASEURL + LIKES_PATH + articleId)
             .toObservable()
+            .onErrorReturn { LikesModel(0) }
             .subscribeOn(io())
     }
 }
