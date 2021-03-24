@@ -1,6 +1,7 @@
-package com.arunkumar.newsupdates
+package com.arunkumar.newsupdates.views
 
 import android.os.Bundle
+import com.arunkumar.newsupdates.R
 import dagger.android.support.DaggerAppCompatActivity
 import dagger.android.support.HasSupportFragmentInjector
 

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arunkumar.newsupdates.NewsUpdateUtils.EMPTY_STRING
-import com.arunkumar.newsupdates.NewsUpdateViewState
+import com.arunkumar.newsupdates.viewstate.NewsUpdateViewState
 import com.arunkumar.newsupdates.R
 import com.arunkumar.newsupdates.adapters.NewsArticleAdapter
 import com.arunkumar.newsupdates.viewmodels.NewsUpdateViewModel
@@ -37,7 +37,6 @@ class NewsUpdateFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.d("************** $viewModelFactory")
 
         val viewModel by activityViewModels<NewsUpdateViewModel> { viewModelFactory }
 
@@ -82,7 +81,10 @@ class NewsUpdateFragment : DaggerFragment() {
                             )
 
                         snackbar.apply {
-                            setAction("Dismiss") { dismiss() }
+                            setAction("Retry") {
+                                viewModel.fetchNewsArticle()
+                                dismiss()
+                            }
                             show()
                         }
                     }

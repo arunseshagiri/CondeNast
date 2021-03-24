@@ -1,6 +1,6 @@
 package com.arunkumar.newsupdates.repository.mapper
 
-import com.arunkumar.newsupdates.NewsUpdateViewState
+import com.arunkumar.newsupdates.viewstate.NewsUpdateViewState
 import com.arunkumar.newsupdates.models.NewsUpdateDomainModel
 import io.reactivex.functions.Function
 

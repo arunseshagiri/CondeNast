@@ -3,7 +3,7 @@ package com.arunkumar.newsupdates.repository
 import com.arunkumar.newsupdates.NewsUpdateUtils.COMMENTS_PATH
 import com.arunkumar.newsupdates.NewsUpdateUtils.EXTRA_INFO_BASEURL
 import com.arunkumar.newsupdates.NewsUpdateUtils.LIKES_PATH
-import com.arunkumar.newsupdates.NewsUpdateViewState
+import com.arunkumar.newsupdates.viewstate.NewsUpdateViewState
 import com.arunkumar.newsupdates.apiservice.ArticleApiService
 import com.arunkumar.newsupdates.models.CommentsModel
 import com.arunkumar.newsupdates.models.LikesModel

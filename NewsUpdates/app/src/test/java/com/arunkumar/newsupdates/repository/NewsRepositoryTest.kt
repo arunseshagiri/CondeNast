@@ -1,6 +1,6 @@
 package com.arunkumar.newsupdates.repository
 
-import com.arunkumar.newsupdates.NewsUpdateViewState
+import com.arunkumar.newsupdates.viewstate.NewsUpdateViewState
 import com.arunkumar.newsupdates.apiservice.ArticleApiService
 import com.arunkumar.newsupdates.models.*
 import com.arunkumar.newsupdates.repository.mapper.ListToViewStateConverter
