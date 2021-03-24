@@ -7,6 +7,7 @@ import com.arunkumar.newsupdates.repository.mapper.ListToViewStateConverter
 import com.arunkumar.newsupdates.repository.mapper.ResponseConverter
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
@@ -89,7 +90,7 @@ class NewsRepositoryTest {
     }
 
     @Test
-    fun getNewsArticlesTest() {
+    fun getNewsArticlesTestSuccess() {
         val rawArticle = RawNewsModel("status", 20, rawArticleList)
         val commentsModel1 = CommentsModel(20)
         val commentsModel2 = CommentsModel(30)
@@ -101,6 +102,97 @@ class NewsRepositoryTest {
             articleApiService
                 .articleComments("https://cn-news-info-api.herokuapp.com/comments/1")
         } returns Single.just(commentsModel1)
+        every {
+            articleApiService
+                .articleComments("https://cn-news-info-api.herokuapp.com/comments/2")
+        } returns Single.just(commentsModel2)
+
+        every {
+            articleApiService
+                .articleLikes("https://cn-news-info-api.herokuapp.com/likes/1")
+        } returns Single.just(likesModel1)
+        every {
+            articleApiService
+                .articleLikes("https://cn-news-info-api.herokuapp.com/likes/2")
+        } returns Single.just(likesModel2)
+
+        every { converter.apply(rawArticle) } returns articleList
+
+        every { viewStateConverter.apply(articleList) } returns
+                NewsUpdateViewState.ShowNews(articleList)
+
+        newsRepository
+            .getNewsArticles("")
+            .test()
+            .assertComplete()
+            .assertValue {
+                (it as NewsUpdateViewState.ShowNews)
+                    .newsUpdateDomainModel
+                    .size == articleList.size
+            }
+            .assertValue {
+                (it as NewsUpdateViewState.ShowNews)
+                    .newsUpdateDomainModel[0]
+                    .comments == articleList[0].comments
+            }
+    }
+
+    @Test
+    fun getNewsArticlesTestFailure() {
+        val error = Throwable("Error")
+        every { articleApiService.articles(any()) } returns Single.error(error)
+
+        verify(exactly = 0) {
+            articleApiService.articleComments(any())
+            articleApiService.articleLikes(any())
+            converter.apply(any())
+            viewStateConverter.apply(articleList)
+        }
+
+        newsRepository
+            .getNewsArticles("")
+            .test()
+            .assertError { it.message == error.message }
+    }
+
+    @Test
+    fun `fetch news article is success however comments fetch failed`() {
+        val article1 = NewsUpdateDomainModel(
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "1",
+            10,
+            0
+        )
+
+        val article2 = NewsUpdateDomainModel(
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "2",
+            20,
+            30
+        )
+        articleList = listOf(article1, article2)
+        val rawArticle = RawNewsModel("status", 20, rawArticleList)
+        val commentsModel2 = CommentsModel(30)
+        val likesModel1 = LikesModel(10)
+        val likesModel2 = LikesModel(20)
+
+        val commentsError = Throwable("fetch comments failed")
+        every { articleApiService.articles(any()) } returns Single.just(rawArticle)
+
+        every {
+            articleApiService
+                .articleComments("https://cn-news-info-api.herokuapp.com/comments/1")
+        } returns Single.error(commentsError)
         every {
             articleApiService
                 .articleComments("https://cn-news-info-api.herokuapp.com/comments/2")

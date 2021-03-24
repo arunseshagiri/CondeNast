@@ -10,10 +10,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.arunkumar.newsupdates.NewsUpdateUtils.EMPTY_STRING
 import com.arunkumar.newsupdates.NewsUpdateViewState
 import com.arunkumar.newsupdates.R
 import com.arunkumar.newsupdates.adapters.NewsArticleAdapter
 import com.arunkumar.newsupdates.viewmodels.NewsUpdateViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_news_update.*
 import timber.log.Timber
@@ -71,6 +73,19 @@ class NewsUpdateFragment : DaggerFragment() {
                 }
                 is NewsUpdateViewState.Error -> {
                     Timber.d(it.error)
+                    view?.let { view ->
+                        val snackbar = Snackbar
+                            .make(
+                                view,
+                                it.error.localizedMessage ?: EMPTY_STRING,
+                                Snackbar.LENGTH_INDEFINITE
+                            )
+
+                        snackbar.apply {
+                            setAction("Dismiss") { dismiss() }
+                            show()
+                        }
+                    }
                 }
             }
         })

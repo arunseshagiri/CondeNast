@@ -26,28 +26,30 @@ class NewsRepository @Inject constructor(
             .map(converter)
             .toObservable()
             .flatMapIterable { articles -> articles }
-            .flatMap { article ->
-                Observable.zip(
-                    getNewsComments(article.articleId),
-                    getNewsLikes(article.articleId),
-                    { comments, likes ->
-                        NewsUpdateDomainModel(
-                            article.title,
-                            article.author,
-                            article.description,
-                            article.imageUrl,
-                            article.url,
-                            article.content,
-                            article.articleId,
-                            likes.likes,
-                            comments.comments
-                        )
-                    }
-                )
-            }
+            .flatMap { article -> getCommentsLikes(article) }
             .toList()
             .map(viewStateConverter)
             .subscribeOn(io())
+    }
+
+    private fun getCommentsLikes(article: NewsUpdateDomainModel): Observable<NewsUpdateDomainModel> {
+        return Observable.zip(
+            getNewsComments(article.articleId),
+            getNewsLikes(article.articleId),
+            { comments, likes ->
+                NewsUpdateDomainModel(
+                    article.title,
+                    article.author,
+                    article.description,
+                    article.imageUrl,
+                    article.url,
+                    article.content,
+                    article.articleId,
+                    likes.likes,
+                    comments.comments
+                )
+            }
+        )
     }
 
     private fun getNewsComments(
@@ -56,6 +58,7 @@ class NewsRepository @Inject constructor(
         return articleApiService
             .articleComments(EXTRA_INFO_BASEURL + COMMENTS_PATH + articleId)
             .toObservable()
+            .onErrorReturn { CommentsModel(0) }
             .subscribeOn(io())
     }
 
@@ -65,6 +68,7 @@ class NewsRepository @Inject constructor(
         return articleApiService
             .articleLikes(EXTRA_INFO_BASEURL + LIKES_PATH + articleId)
             .toObservable()
+            .onErrorReturn { LikesModel(0) }
             .subscribeOn(io())
     }
 }
