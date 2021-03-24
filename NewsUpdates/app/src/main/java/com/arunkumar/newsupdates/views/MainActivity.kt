@@ -3,9 +3,8 @@ package com.arunkumar.newsupdates.views
 import android.os.Bundle
 import com.arunkumar.newsupdates.R
 import dagger.android.support.DaggerAppCompatActivity
-import dagger.android.support.HasSupportFragmentInjector
 
-class MainActivity : DaggerAppCompatActivity(), HasSupportFragmentInjector {
+class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
