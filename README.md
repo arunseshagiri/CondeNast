@@ -1,8 +1,7 @@
-## CondeNast Assignment
-Assignment for CondeNast
+## Personal Assignment
 
 ## Clone the project from github
-1. Go to https://github.com/arunseshagiri/CondeNast
+1. Go to git@github.com:arunseshagiri/NewsApp.git
 2. Click on this icon:
    
    <img width="125" alt="Screenshot 2021-03-24 at 10 55 51 PM" src="https://user-images.githubusercontent.com/13729393/112355923-22e0d180-8cf4-11eb-8bc7-56bffd061deb.png">
@@ -10,9 +9,9 @@ Assignment for CondeNast
 3. Chose HTTPS and copy the url shown in the dropdown.
 4. Go to Terminal on MAC and type the below command
 
-   git clone https://github.com/arunseshagiri/CondeNast.git
+   git clone git@github.com:arunseshagiri/NewsApp.git
 
-5. Project will be cloned inside CondeNast folder
+5. Project will be cloned inside NewsApp folder
 6. You would see something like this:
 
    <img width="666" alt="Screenshot 2021-03-24 at 11 00 09 PM" src="https://user-images.githubusercontent.com/13729393/112356573-bd411500-8cf4-11eb-920c-fe9462eaff6d.png">
@@ -23,13 +22,13 @@ Assignment for CondeNast
 ## Importing the project to Android Studio
 1. In Android Studio, choose open an Existing Project if in welcome screen, else go to file > New > Import project
 2. Go to the location on your disk where project was cloned. 
-3. Go inside CondeNast folder > NewsUpdates > Now click on **open**
+3. Go inside NewsApp folder > NewsUpdates > Now click on **open**
 4. The project will be imported to Android Studio, however, build.gradle will fail with following error:
 
    <img width="933" alt="Screenshot 2021-03-24 at 11 07 04 PM" src="https://user-images.githubusercontent.com/13729393/112357589-afd85a80-8cf5-11eb-82d9-bf630a7a9d6e.png">
 
 ## Resolve Build.gradle error
-1. Go to <location where project was cloned>/CondeNast/NewsUpdates > local.properties
+1. Go to <location where project was cloned>/NewsApp/NewsUpdates > local.properties
 
 2. Open local.properties and add below line:
 
